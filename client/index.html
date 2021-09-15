@@ -28,7 +28,7 @@
 
       <!-- if logged in -->
       <div class="account-area">
-        <div class="avatar">Joseph</div>
+        <div class="avatar"></div>
         <button class="logout">Logout</button>
       </div>
     </header>
@@ -37,6 +37,7 @@
   </body>
   <script>
     var account = null;
+    var serverUrlPrefix = "https://pokeapi.co/api/v2/";
     $(function () {
       showAccount();
       bindLoginClick();
@@ -49,6 +50,7 @@
         if (account.name) {
           $(".login-container").hide();
           $(".account-area").show();
+          $(".avatar").html(account.name);
         }
       } else {
         $(".login-container").show();
@@ -59,12 +61,14 @@
     function bindLoginClick() {
       $(".login").click(function () {
         // call ajax and get response and when response is back show it
+        $.ajax({
+          url: serverUrlPrefix + "pokemon/1",
+          context: document.body, // you should use a real login service + method = POST ...
+        }).done(function (response) {
+          account = response;
 
-        account = {
-          name: "joseph",
-        };
-
-        showAccount();
+          showAccount();
+        });
       });
     }
     function bindLogoutClick() {
