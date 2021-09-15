@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      header {
+        background-color: yellow;
+        height: 50px;
+        width: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <!-- If logout -->
+
+      <div class="login-container">
+        <button class="login">Login</button>
+      </div>
+
+      <!-- if logged in -->
+      <div class="account-area">
+        <div class="avatar">Joseph</div>
+        <button class="logout">Logout</button>
+      </div>
+    </header>
+
+    <div class="content">I can see this</div>
+  </body>
+  <script>
+    var account = null;
+    $(function () {
+      showAccount();
+      bindLoginClick();
+      bindLogoutClick();
+    });
+
+    function showAccount() {
+      if (account) {
+        //logged in
+        if (account.name) {
+          $(".login-container").hide();
+          $(".account-area").show();
+        }
+      } else {
+        $(".login-container").show();
+        $(".account-area").hide();
+      }
+    }
+
+    function bindLoginClick() {
+      $(".login").click(function () {
+        // call ajax and get response and when response is back show it
+
+        account = {
+          name: "joseph",
+        };
+
+        showAccount();
+      });
+    }
+    function bindLogoutClick() {
+      $(".logout").click(function () {
+        // clear session if session is used or clear local storage
+        account = null;
+
+        showAccount();
+      });
+    }
+  </script>
+</html>
